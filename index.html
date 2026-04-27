@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أطلس الحياة البرية - قصص الحيوانات المهددة بالانقراض</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a;
+    --moss: #2d5a3d;
+    --sage: #4a8c5c;
+    --leaf: #6ab04c;
+    --gold: #d4a017;
+    --amber: #e8b84b;
+    --cream: #f5f0e8;
+    --parchment: #ede8dc;
+    --ink: #1c1c1c;
+    --bark: #5c3d1e;
+    --sand: #c8b89a;
+    --danger: #c0392b;
+    --sky: #2980b9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--forest);
+    color: var(--cream);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 20px; height: 20px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: none;
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(26,58,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,160,23,0.25);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 0.5rem;
+    text-decoration: none;
+  }
+  .nav-logo svg { width: 28px; height: 28px; }
+
+  .nav-links {
+    display: flex; gap: 0.3rem; list-style: none; align-items: center;
+  }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { background: rgba(212,160,23,0.18); color: var(--amber); }
+  .nav-links .btn-nav {
+    background: var(--gold); color: var(--forest);
+    font-weight: 700; border-radius: 8px; padding: 0.5rem 1.1rem;
+  }
+  .nav-links .btn-nav:hover { background: var(--amber); }
+
+  /* ============ HERO ============ */
+  #home {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 30% 70%, rgba(74,140,92,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, rgba(212,160,23,0.12) 0%, transparent 50%),
+      var(--forest);
+    padding: 8rem 2rem 4rem;
+  }
+
+  /* Animated background shapes */
+  .hero-bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.06;
+    animation: drift 18s ease-in-out infinite;
+  }
+  .hero-bg-shape:nth-child(1) { width: 600px; height: 600px; background: var(--leaf); top: -150px; right: -150px; animation-delay: 0s; }
+  .hero-bg-shape:nth-child(2) { width: 400px; height: 400px; background: var(--gold); bottom: -100px; left: -100px; animation-delay: -6s; }
+  .hero-bg-shape:nth-child(3) { width: 250px; height: 250px; background: var(--sage); top: 40%; left: 10%; animation-delay: -12s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(20px,-15px) scale(1.05); }
+    66% { transform: translate(-10px,20px) scale(0.95); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(212,160,23,0.15);
+    border: 1px solid rgba(212,160,23,0.4);
+    border-radius: 100px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.82rem;
+    color: var(--amber);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-badge span { width: 8px; height: 8px; background: var(--amber); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+  .hero-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s 0.1s ease both;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title .accent { color: var(--gold); }
+  .hero-title .line2 { color: var(--leaf); font-size: 0.7em; }
+
+  .hero-subtitle {
+    max-width: 680px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(245,240,232,0.72);
+    line-height: 1.8;
+    margin: 0 auto 3rem;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 1.1s 0.3s ease both;
+    position: relative; z-index: 1;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--forest);
+    border: none;
+    padding: 0.85rem 2.2rem;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: none;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    box-shadow: 0 4px 20px rgba(212,160,23,0.3);
+  }
+  .btn-primary:hover { background: var(--amber); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,160,23,0.4); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    border: 1.5px solid rgba(245,240,232,0.3);
+    padding: 0.85rem 2.2rem;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: none;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--amber); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 4rem;
+    animation: fadeUp 1.2s 0.45s ease both;
+    position: relative; z-index: 1;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Amiri', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.82rem; color: rgba(245,240,232,0.55); margin-top: 0.3rem; }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(245,240,232,0.35);
+    font-size: 0.75rem;
+    animation: fadeUp 1.5s 1s ease both;
+  }
+  .scroll-hint .arrow {
+    width: 24px; height: 24px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:rotate(45deg) translate(0,0)} 50%{transform:rotate(45deg) translate(4px,4px)} }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ SECTIONS SHARED ============ */
+  section { padding: 5rem 2rem; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-tag {
+    display: inline-block;
+    background: rgba(106,176,76,0.15);
+    border: 1px solid rgba(106,176,76,0.35);
+    color: var(--leaf);
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    color: rgba(245,240,232,0.55);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ============ ATLAS / CATEGORIES ============ */
+  #atlas {
+    background: linear-gradient(180deg, var(--forest) 0%, #122a1e 100%);
+    position: relative;
+  }
+
+  .atlas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) { .atlas-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .atlas-grid { grid-template-columns: 1fr; } }
+
+  .atlas-card {
+    background: rgba(45,90,61,0.25);
+    border: 1px solid rgba(106,176,76,0.2);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: none;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .atlas-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(106,176,76,0.1) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .atlas-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--leaf); box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(106,176,76,0.3); }
+  .atlas-card:hover::before { opacity: 1; }
+
+  .atlas-card .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    transition: transform 0.3s;
+  }
+  .atlas-card:hover .icon { transform: scale(1.2) rotate(-5deg); }
+
+  .atlas-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .atlas-card p { font-size: 0.82rem; color: rgba(245,240,232,0.5); line-height: 1.6; }
+
+  .atlas-card .count {
+    position: absolute; top: 1rem; left: 1rem;
+    background: rgba(212,160,23,0.2);
+    border: 1px solid rgba(212,160,23,0.3);
+    color: var(--amber);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+
+  /* ============ STORIES / HEROES ============ */
+  #heroes {
+    background: #0e2219;
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) { .stories-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .stories-grid { grid-template-columns: 1fr; } }
+
+  .story-card {
+    background: rgba(26,58,42,0.6);
+    border: 1px solid rgba(245,240,232,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: none;
+    text-decoration: none;
+    color: inherit;
+  }
+  .story-card:hover { transform: translateY(-6px); border-color: rgba(106,176,76,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
+
+  .story-img {
+    width: 100%; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-img .bg-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.15;
+    background-image: radial-gradient(circle at 20% 50%, var(--c1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, var(--c2) 0%, transparent 50%);
+  }
+  .story-img .emoji { position: relative; z-index: 1; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4)); }
+  .story-card:hover .emoji { transform: scale(1.2); }
+
+  .status-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    z-index: 2;
+  }
+  .status-critical { background: rgba(192,57,43,0.85); color: #fff; }
+  .status-endangered { background: rgba(211,84,0,0.85); color: #fff; }
+  .status-vulnerable { background: rgba(243,156,18,0.85); color: #1c1c1c; }
+
+  .story-body { padding: 1.5rem; }
+  .story-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--cream); }
+  .story-body p { font-size: 0.85rem; color: rgba(245,240,232,0.55); line-height: 1.7; margin-bottom: 1rem; }
+  .story-meta { display: flex; justify-content: space-between; align-items: center; }
+  .story-region { font-size: 0.75rem; color: var(--leaf); font-weight: 600; }
+  .story-read { font-size: 0.78rem; color: var(--amber); text-decoration: none; font-weight: 600; transition: gap 0.2s; display: flex; align-items: center; gap: 0.3rem; }
+  .story-read:hover { gap: 0.6rem; }
+
+  /* ============ MEDIA GALLERY ============ */
+  #media {
+    background: linear-gradient(180deg, #0e2219 0%, var(--forest) 100%);
+  }
+
+  .gallery-tabs {
+    display: flex; gap: 0.5rem; justify-content: center;
+    margin-bottom: 2.5rem; flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(245,240,232,0.15);
+    background: transparent;
+    color: rgba(245,240,232,0.5);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: none;
+    transition: all 0.2s;
+  }
+  .tab-btn.active, .tab-btn:hover { background: var(--leaf); border-color: var(--leaf); color: #fff; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
+
+  .gallery-item {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+    cursor: none;
+    background: rgba(45,90,61,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem;
+    border: 1px solid rgba(245,240,232,0.08);
+    transition: transform 0.3s;
+  }
+  .gallery-item:hover { transform: scale(1.03); }
+  .gallery-item:first-child { grid-column: span 2; font-size: 5rem; }
+
+  .gallery-item .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 1rem;
+  }
+  .gallery-item:hover .overlay { opacity: 1; }
+  .gallery-item .overlay span { font-size: 0.85rem; font-weight: 600; color: #fff; }
+
+  /* ============ MAP SECTION ============ */
+  #map-section {
+    background: var(--forest);
+  }
+
+  .map-wrapper {
+    background: rgba(14,34,25,0.8);
+    border: 1px solid rgba(106,176,76,0.2);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .world-map {
+    width: 100%; max-width: 800px;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+  }
+
+  /* SVG Map Regions */
+  .map-region { fill: rgba(45,90,61,0.6); stroke: rgba(106,176,76,0.4); stroke-width: 1; transition: fill 0.3s; cursor: none; }
+  .map-region:hover, .map-region.active { fill: var(--leaf); }
+  .map-region.danger { fill: rgba(192,57,43,0.5); }
+  .map-region.warning { fill: rgba(211,84,0,0.5); }
+
+  .map-legend {
+    display: flex; gap: 1.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: rgba(245,240,232,0.6); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* ============ DATA / EXTINCTION RECORDS ============ */
+  #data {
+    background: #0e2219;
+  }
+
+  .data-table-wrapper {
+    background: rgba(26,58,42,0.4);
+    border: 1px solid rgba(106,176,76,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .data-table th {
+    background: rgba(45,90,61,0.5);
+    padding: 1rem 1.5rem;
+    text-align: right;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(106,176,76,0.2);
+  }
+
+  .data-table td {
+    padding: 1rem 1.5rem;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(245,240,232,0.05);
+    color: rgba(245,240,232,0.75);
+    vertical-align: middle;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(106,176,76,0.07); }
+
+  .danger-level {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .dl-cr { background: rgba(192,57,43,0.2); color: #e74c3c; border: 1px solid rgba(192,57,43,0.3); }
+  .dl-en { background: rgba(211,84,0,0.2); color: #e67e22; border: 1px solid rgba(211,84,0,0.3); }
+  .dl-vu { background: rgba(243,156,18,0.2); color: #f39c12; border: 1px solid rgba(243,156,18,0.3); }
+
+  .trend-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 100px; height: 6px; min-width: 80px; overflow: hidden; }
+  .trend-bar { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--danger), var(--amber)); }
+
+  /* ============ RESOURCES ============ */
+  #resources {
+    background: linear-gradient(180deg, #0e2219 0%, var(--forest) 100%);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 700px) { .resources-grid { grid-template-columns: 1fr; } }
+
+  .resource-card {
+    background: rgba(45,90,61,0.2);
+    border: 1px solid rgba(245,240,232,0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    cursor: none;
+    text-decoration: none;
+    color: inherit;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+  }
+  .resource-card:hover { border-color: var(--leaf); background: rgba(45,90,61,0.4); transform: translateY(-4px); }
+
+  .resource-icon {
+    width: 56px; height: 56px;
+    background: rgba(106,176,76,0.15);
+    border: 1px solid rgba(106,176,76,0.3);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .resource-card:hover .resource-icon { transform: scale(1.1) rotate(-5deg); }
+
+  .resource-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--cream); }
+  .resource-card p { font-size: 0.82rem; color: rgba(245,240,232,0.5); line-height: 1.6; }
+
+  /* ============ NEWS / BLOG ============ */
+  #news {
+    background: var(--forest);
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } }
+
+  .news-card {
+    background: rgba(14,34,25,0.6);
+    border: 1px solid rgba(245,240,232,0.07);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: none;
+    text-decoration: none;
+    color: inherit;
+  }
+  .news-card:hover { border-color: rgba(106,176,76,0.4); transform: translateY(-4px); }
+
+  .news-thumb {
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem;
+    background: rgba(26,58,42,0.5);
+    position: relative;
+  }
+  .news-date {
+    position: absolute; bottom: 0.75rem; right: 0.75rem;
+    background: rgba(0,0,0,0.5);
+    color: var(--sand);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+  }
+  .news-body { padding: 1.25rem; }
+  .news-tag { font-size: 0.72rem; color: var(--leaf); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+  .news-body h3 { font-size: 0.95rem; font-weight: 700; color: var(--cream); line-height: 1.5; }
+
+  /* ============ PARTNERS ============ */
+  #partners {
+    background: #0e2219;
+    padding: 4rem 2rem;
+  }
+
+  .partners-grid {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+  .partner-badge {
+    background: rgba(45,90,61,0.3);
+    border: 1px solid rgba(245,240,232,0.1);
+    border-radius: 14px;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(245,240,232,0.6);
+    transition: all 0.2s;
+    cursor: none;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .partner-badge:hover { border-color: var(--leaf); color: var(--cream); background: rgba(45,90,61,0.5); }
+
+  /* ============ HOW TO HELP ============ */
+  #help {
+    background: var(--forest);
+  }
+
+  .help-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 800px) { .help-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .help-grid { grid-template-columns: 1fr; } }
+
+  .help-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: rgba(45,90,61,0.2);
+    border: 1px solid rgba(106,176,76,0.15);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: none;
+  }
+  .help-card:hover { background: rgba(45,90,61,0.4); border-color: rgba(106,176,76,0.4); transform: translateY(-6px); }
+  .help-step {
+    width: 48px; height: 48px;
+    background: var(--gold);
+    color: var(--forest);
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-family: 'Amiri', serif;
+  }
+  .help-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .help-card p { font-size: 0.83rem; color: rgba(245,240,232,0.5); line-height: 1.7; }
+
+  /* ============ ABOUT ============ */
+  #about {
+    background: #0e2219;
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 800px) { .about-inner { grid-template-columns: 1fr; } }
+
+  .about-visual {
+    position: relative; text-align: center;
+  }
+  .about-emoji-big {
+    font-size: 8rem;
+    display: block;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+    animation: floatAnim 4s ease-in-out infinite;
+  }
+  @keyframes floatAnim { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+  .about-ring {
+    position: absolute;
+    border: 1px solid rgba(106,176,76,0.2);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .about-ring:nth-child(2) { width: 200px; height: 200px; animation: spin 20s linear infinite; }
+  .about-ring:nth-child(3) { width: 280px; height: 280px; animation: spin 30s linear infinite reverse; border-style: dashed; }
+
+  @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+  .about-text h2 { font-family: 'Amiri', serif; font-size: 2.2rem; margin-bottom: 1.2rem; }
+  .about-text p { color: rgba(245,240,232,0.6); line-height: 1.9; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+  .mission-points { list-style: none; }
+  .mission-points li {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    margin-bottom: 1rem;
+    color: rgba(245,240,232,0.7);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .mission-points li .dot { width: 8px; height: 8px; background: var(--leaf); border-radius: 50%; margin-top: 0.4rem; flex-shrink: 0; }
+
+  /* ============ CONTACT ============ */
+  #contact {
+    background: linear-gradient(180deg, #0e2219 0%, var(--forest) 100%);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 750px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  .contact-info h2 { font-family: 'Amiri', serif; font-size: 2.2rem; margin-bottom: 1rem; }
+  .contact-info p { color: rgba(245,240,232,0.55); line-height: 1.8; margin-bottom: 2rem; font-size: 0.95rem; }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(45,90,61,0.25);
+    border: 1px solid rgba(106,176,76,0.15);
+    border-radius: 14px;
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    cursor: none;
+  }
+  .contact-link:hover { border-color: var(--leaf); background: rgba(45,90,61,0.4); }
+  .contact-link .cl-icon { font-size: 1.3rem; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 600; color: rgba(245,240,232,0.5); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: rgba(45,90,61,0.2);
+    border: 1.5px solid rgba(106,176,76,0.2);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    color: var(--cream);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--leaf); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,240,232,0.25); }
+  .form-group textarea { min-height: 100px; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: #071510;
+    border-top: 1px solid rgba(106,176,76,0.15);
+    padding: 3rem 2rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .footer-inner { grid-template-columns: 1fr; } }
+
+  .footer-brand .logo {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .footer-brand p { font-size: 0.82rem; color: rgba(245,240,232,0.4); line-height: 1.8; }
+
+  .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--cream); margin-bottom: 1rem; letter-spacing: 0.04em; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul li a {
+    color: rgba(245,240,232,0.4);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+    cursor: none;
+  }
+  .footer-col ul li a:hover { color: var(--leaf); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(245,240,232,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(245,240,232,0.25); }
+
+  /* ============ MODAL ============ */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    padding: 2rem;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+  .modal-box {
+    background: #122a1e;
+    border: 1px solid rgba(106,176,76,0.3);
+    border-radius: 24px;
+    max-width: 600px; width: 100%;
+    max-height: 80vh; overflow-y: auto;
+    padding: 2.5rem;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1);
+    border: none; border-radius: 50%;
+    color: var(--cream);
+    font-size: 1rem;
+    cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.2); }
+  .modal-box { position: relative; }
+
+  .modal-animal-emoji { font-size: 5rem; text-align: center; margin-bottom: 1.5rem; display: block; }
+  .modal-title { font-family: 'Amiri', serif; font-size: 1.8rem; text-align: center; margin-bottom: 0.5rem; }
+  .modal-status { text-align: center; margin-bottom: 1.5rem; }
+  .modal-body { color: rgba(245,240,232,0.65); line-height: 1.9; font-size: 0.92rem; }
+  .modal-body h4 { color: var(--amber); margin: 1.2rem 0 0.5rem; font-size: 0.9rem; }
+
+  /* ============ TOAST ============ */
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--forest);
+    border: 1px solid var(--leaf);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    font-size: 0.88rem;
+    color: var(--cream);
+    z-index: 3000;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* SCROLL ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ============ SEARCH BAR ============ */
+  .hero-search {
+    margin-top: 2.5rem;
+    display: flex;
+    max-width: 520px;
+    margin-left: auto; margin-right: auto;
+    background: rgba(45,90,61,0.4);
+    border: 1.5px solid rgba(106,176,76,0.3);
+    border-radius: 14px;
+    overflow: hidden;
+    animation: fadeUp 1.3s 0.5s ease both;
+  }
+  .hero-search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0.9rem 1.2rem;
+    color: var(--cream);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    text-align: right;
+  }
+  .hero-search input::placeholder { color: rgba(245,240,232,0.3); }
+  .hero-search button {
+    background: var(--leaf);
+    border: none;
+    padding: 0 1.5rem;
+    color: #fff;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .hero-search button:hover { background: var(--sage); }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">✅ تم إرسال رسالتك بنجاح!</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="modal-animal-emoji" id="modalEmoji">🐅</span>
+    <h2 class="modal-title" id="modalTitle">النمر الأمور</h2>
+    <div class="modal-status" id="modalStatus"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ====== NAV ====== -->
+<nav>
+  <a href="#home" class="nav-logo">
+    <svg viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18" stroke="#d4a017" stroke-width="2" stroke-dasharray="4 2"/>
+      <text x="20" y="27" text-anchor="middle" font-size="18" fill="#d4a017">🌿</text>
+    </svg>
+    أطلس الحياة البرية
+  </a>
+  <ul class="nav-links">
+    <li><a href="#atlas">الأطلس</a></li>
+    <li><a href="#heroes">القصص</a></li>
+    <li><a href="#media">المعرض</a></li>
+    <li><a href="#data">البيانات</a></li>
+    <li><a href="#resources">الموارد</a></li>
+    <li><a href="#news">المدونة</a></li>
+    <li><a href="#about">عن المشروع</a></li>
+    <li><a href="#contact" class="btn-nav">تواصل معنا</a></li>
+  </ul>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section id="home">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-bg-shape"></div>
+  <div class="hero-bg-shape"></div>
+
+  <div class="hero-badge">
+    <span></span>
+    مشروع الحفاظ على التنوع البيولوجي
+  </div>
+
+  <h1 class="hero-title">
+    أطلس <span class="accent">القصص</span><br>
+    <span class="line2">الحيوانات المهددة بالانقراض</span>
+  </h1>
+
+  <p class="hero-subtitle">
+    رحلة توثيقية عميقة في عالم الكائنات الحية التي تقف على حافة الاختفاء.
+    نرويها لنحفظها، ونحفظها لتبقى.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#atlas" class="btn-primary">🌍 استكشف الأطلس</a>
+    <a href="#heroes" class="btn-secondary">📖 اقرأ القصص</a>
+  </div>
+
+  <div class="hero-search">
+    <input type="text" placeholder="ابحث عن حيوان أو منطقة جغرافية..." />
+    <button>بحث</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">42,108</div>
+      <div class="stat-label">نوع مهدد بالانقراض</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">902</div>
+      <div class="stat-label">نوع منقرض منذ 1500م</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">16,300</div>
+      <div class="stat-label">منطقة محمية عالمياً</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>اسحب للأسفل</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- ====== ATLAS - CATEGORIES ====== -->
+<section id="atlas">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">أطلس القصص</div>
+      <h2 class="section-title">الخريطة التفاعلية للأصناف</h2>
+      <p class="section-subtitle">اختر فئة لاستكشاف القصص والبيانات المرتبطة بها</p>
+    </div>
+    <div class="atlas-grid">
+      <a href="#heroes" class="atlas-card reveal" onclick="filterStories('mammals')">
+        <span class="count">+340 نوع</span>
+        <span class="icon">🐘</span>
+        <h3>الثدييات</h3>
+        <p>من الفيل الأفريقي إلى الوشق الأيبيري</p>
+      </a>
+      <a href="#heroes" class="atlas-card reveal" onclick="filterStories('birds')">
+        <span class="count">+180 نوع</span>
+        <span class="icon">🦅</span>
+        <h3>الطيور</h3>
+        <p>أجمل مخلوقات السماء في خطر</p>
+      </a>
+      <a href="#heroes" class="atlas-card reveal" onclick="filterStories('marine')">
+        <span class="count">+220 نوع</span>
+        <span class="icon">🐋</span>
+        <h3>الحياة البحرية</h3>
+        <p>أعماق البحار تحتضر ببطء</p>
+      </a>
+      <a href="#data" class="atlas-card reveal">
+        <span class="count">+95 نوع</span>
+        <span class="icon">🧭</span>
+        <h3>سجلات الانقراض</h3>
+        <p>البيانات والإحصاءات التاريخية</p>
+      </a>
+      <a href="#resources" class="atlas-card reveal">
+        <span class="count">مواد تعليمية</span>
+        <span class="icon">📚</span>
+        <h3>ركن المعلم والطالب</h3>
+        <p>موارد تعليمية متكاملة للفصل الدراسي</p>
+      </a>
+      <a href="#partners" class="atlas-card reveal">
+        <span class="count">+60 شريك</span>
+        <span class="icon">🤝</span>
+        <h3>شركاء الاستدامة</h3>
+        <p>منظمات وهيئات تعمل لحفظ الحياة البرية</p>
+      </a>
+      <a href="#help" class="atlas-card reveal">
+        <span class="count">ابدأ الآن</span>
+        <span class="icon">💡</span>
+        <h3>كيف أساعد؟</h3>
+        <p>خطوات عملية يمكنك اتخاذها اليوم</p>
+      </a>
+      <a href="#news" class="atlas-card reveal">
+        <span class="count">آخر الأخبار</span>
+        <span class="icon">📰</span>
+        <h3>المدونة الإخبارية</h3>
+        <p>تقارير وأبحاث وقصص من الميدان</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== HEROES / STORIES ====== -->
+<section id="heroes">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">أبطال الحفظ</div>
+      <h2 class="section-title">قصص الحيوانات المهددة</h2>
+      <p class="section-subtitle">وراء كل رقم في قائمة الانقراض، قصة حياة تستحق أن تُروى</p>
+    </div>
+    <div class="stories-grid" id="storiesGrid">
+
+      <a href="#" class="story-card reveal" onclick="openModal('tiger'); return false;">
+        <div class="story-img" style="background: linear-gradient(135deg, #2c1810, #5c3420); --c1:#c0392b; --c2:#e67e22;">
+          <div class="bg-pattern"></div>
+          <span class="emoji">🐅</span>
+          <span class="status-badge status-endangered">مهدد بالانقراض</span>
+        </div>
+        <div class="story-body">
+          <h3>النمر البنغالي</h3>
+          <p>تراجع عدده من 100,000 في القرن الماضي إلى أقل من 3,900 فرد اليوم.</p>
+          <div class="story-meta">
+            <span class="story-region">🌏 جنوب آسيا</span>
+            <span class="story-read">اقرأ القصة ←</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="story-card reveal" onclick="openModal('rhino'); return false;">
+        <div class="story-img" style="background: linear-gradient(135deg, #1a2510, #3a5520); --c1:#27ae60; --c2:#2ecc71;">
+          <div class="bg-pattern"></div>
+          <span class="emoji">🦏</span>
+          <span class="status-badge status-critical">خطر بالغ</span>
+        </div>
+        <div class="story-body">
+          <h3>وحيد القرن الأبيض الشمالي</h3>
+          <p>تبقّى أنثيان فقط في العالم. النوع في حالة انقراض وظيفي شبه كامل.</p>
+          <div class="story-meta">
+            <span class="story-region">🌍 أفريقيا</span>
+            <span class="story-read">اقرأ القصة ←</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="story-card reveal" onclick="openModal('panda'); return false;">
+        <div class="story-img" style="background: linear-gradient(135deg, #0d0d0d, #2d2d2d); --c1:#ecf0f1; --c2:#bdc3c7;">
+          <div class="bg-pattern"></div>
+          <span class="emoji">🐼</span>
+          <span class="status-badge status-vulnerable">عُرضة للخطر</span>
+        </div>
+        <div class="story-body">
+          <h3>الباندا العملاقة</h3>
+          <p>قصة نجاح جزئي: ارتفع عددها إلى 1,864 بعد جهود حفظ ممتدة لعقود.</p>
+          <div class="story-meta">
+            <span class="story-region">🌏 الصين</span>
+            <span class="story-read">اقرأ القصة ←</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="story-card reveal" onclick="openModal('whale'); return false;">
+        <div class="story-img" style="background: linear-gradient(135deg, #0a1628, #1a3a5c); --c1:#2980b9; --c2:#1abc9c;">
+          <div class="bg-pattern"></div>
+          <span class="emoji">🐳</span>
+          <span class="status-badge status-endangered">مهدد بالانقراض</span>
+        </div>
+        <div class="story-body">
+          <h3>الحوت الأزرق</h3>
+          <p>أضخم كائن عرفته الأرض، لا يزيد عدده عن 10,000-25,000 فرد في المحيطات.</p>
+          <div class="story-meta">
+            <span class="story-region">🌊 المحيطات</span>
+            <span class="story-read">اقرأ القصة ←</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="story-card reveal" onclick="openModal('eagle'); return false;">
+        <div class="story-img" style="background: linear-gradient(135deg, #1a1005, #3d2a0a); --c1:#f39c12; --c2:#e67e22;">
+          <div class="bg-pattern"></div>
+          <span class="emoji">🦅</span>
+          <span class="status-badge status-endangered">مهدد بالانقراض</span>
+        </div>
+        <div class="story-body">
+          <h3>النسر الفلبيني</h3>
+          <p>أكبر نسور العالم بامتداد جناحيه 2.2 متر. متبقٍّ أقل من 800 زوج في الغابات.</p>
+          <div class="story-meta">
+            <span class="story-region">🌏 الفلبين</span>
+            <span class="story-read">اقرأ القصة ←</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="story-card reveal" onclick="openModal('gorilla'); return false;">
+        <div class="story-img" style="background: linear-gradient(135deg, #0d1a0d, #1e3a1e); --c1:#27ae60; --c2:#16a085;">
+          <div class="bg-pattern"></div>
+          <span class="emoji">🦍</span>
+          <span class="status-badge status-critical">خطر بالغ</span>
+        </div>
+        <div class="story-body">
+          <h3>الغوريلا الجبلية</h3>
+          <p>لا يتجاوز عددها 1,063 فرداً في جبال فيرونغا ومنتزه بووندي الجبلي.</p>
+          <div class="story-meta">
+            <span class="story-region">🌍 وسط أفريقيا</span>
+            <span class="story-read">اقرأ القصة ←</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====== MEDIA GALLERY ====== -->
+<section id="media">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">معرض الوسائط</div>
+      <h2 class="section-title">صور وفيديو من الطبيعة</h2>
+      <p class="section-subtitle">لحظات نادرة التقطها مصورون ميدانيون من قلب البيئات الطبيعية</p>
+    </div>
+
+    <div class="gallery-tabs reveal">
+      <button class="tab-btn active">الكل</button>
+      <button class="tab-btn">الثدييات</button>
+      <button class="tab-btn">الطيور</button>
+      <button class="tab-btn">البحرية</button>
+      <button class="tab-btn">فيديو</button>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div style="font-size:6rem">🐅</div>
+        <div class="overlay"><span>نمر بنغالي في عمق الغابة - الهند 2023</span></div>
+      </div>
+      <div class="gallery-item">
+        <div>🦍</div>
+        <div class="overlay"><span>غوريلا جبلية مع أشبالها</span></div>
+      </div>
+      <div class="gallery-item">
+        <div>🦅</div>
+        <div class="overlay"><span>النسر الفلبيني في طيرانه</span></div>
+      </div>
+      <div class="gallery-item">
+        <div>🐋</div>
+        <div class="overlay"><span>الحوت الأزرق في المحيط الهادئ</span></div>
+      </div>
+      <div class="gallery-item">
+        <div>🦏</div>
+        <div class="overlay"><span>وحيد القرن الأبيض الشمالي</span></div>
+      </div>
+      <div class="gallery-item">
+        <div>🐬</div>
+        <div class="overlay"><span>دلافين المحيط الهادئ</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== MAP ====== -->
+<section id="map-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">الخريطة التفاعلية</div>
+      <h2 class="section-title">توزيع الأنواع المهددة جغرافياً</h2>
+      <p class="section-subtitle">كلما اشتدّ اللون، كان الخطر أكبر</p>
+    </div>
+
+    <div class="map-wrapper reveal">
+      <svg viewBox="0 0 1000 500" class="world-map" xmlns="http://www.w3.org/2000/svg">
+        <!-- Simplified world map regions as rounded rectangles with labels -->
+        <defs>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- Ocean background -->
+        <rect width="1000" height="500" fill="rgba(14,34,25,0.5)" rx="16"/>
+
+        <!-- North America -->
+        <ellipse cx="180" cy="180" rx="130" ry="100" class="map-region warning" opacity="0.8"/>
+        <text x="180" y="185" text-anchor="middle" fill="rgba(245,240,232,0.6)" font-size="12" font-family="Tajawal,sans-serif">أمريكا الشمالية</text>
+
+        <!-- South America -->
+        <ellipse cx="250" cy="340" rx="90" ry="110" class="map-region danger" opacity="0.8"/>
+        <text x="250" y="345" text-anchor="middle" fill="rgba(245,240,232,0.6)" font-size="12" font-family="Tajawal,sans-serif">أمريكا الجنوبية</text>
+
+        <!-- Europe -->
+        <ellipse cx="480" cy="140" rx="80" ry="60" class="map-region" opacity="0.8"/>
+        <text x="480" y="145" text-anchor="middle" fill="rgba(245,240,232,0.6)" font-size="12" font-family="Tajawal,sans-serif">أوروبا</text>
+
+        <!-- Africa -->
+        <ellipse cx="490" cy="300" rx="95" ry="130" class="map-region danger" opacity="0.8"/>
+        <text x="490" y="305" text-anchor="middle" fill="rgba(245,240,232,0.6)" font-size="12" font-family="Tajawal,sans-serif">أفريقيا</text>
+
+        <!-- Asia -->
+        <ellipse cx="710" cy="180" rx="170" ry="120" class="map-region warning" opacity="0.8"/>
+        <text x="710" y="185" text-anchor="middle" fill="rgba(245,240,232,0.6)" font-size="12" font-family="Tajawal,sans-serif">آسيا</text>
+
+        <!-- Australia/Oceania -->
+        <ellipse cx="830" cy="360" rx="90" ry="70" class="map-region warning" opacity="0.8"/>
+        <text x="830" y="365" text-anchor="middle" fill="rgba(245,240,232,0.6)" font-size="12" font-family="Tajawal,sans-serif">أستراليا</text>
+
+        <!-- Hotspot markers -->
+        <circle cx="490" cy="260" r="8" fill="#c0392b" filter="url(#glow)" opacity="0.9"/>
+        <circle cx="710" cy="160" r="8" fill="#e67e22" filter="url(#glow)" opacity="0.9"/>
+        <circle cx="250" cy="300" r="7" fill="#c0392b" filter="url(#glow)" opacity="0.9"/>
+        <circle cx="780" cy="220" r="6" fill="#e67e22" filter="url(#glow)" opacity="0.9"/>
+        <circle cx="560" cy="230" r="5" fill="#f39c12" filter="url(#glow)" opacity="0.9"/>
+      </svg>
+
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div>خطر بالغ (CR)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e67e22"></div>مهدد (EN)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div>عُرضة للخطر (VU)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4a8c5c"></div>منخفض الخطر</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== DATA TABLE ====== -->
+<section id="data">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">سجلات الانقراض</div>
+      <h2 class="section-title">البيانات والإحصاءات</h2>
+      <p class="section-subtitle">بيانات موثقة من القائمة الحمراء للاتحاد الدولي لصون الطبيعة (IUCN)</p>
+    </div>
+
+    <div class="data-table-wrapper reveal">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>الحيوان</th>
+            <th>التصنيف</th>
+            <th>العدد التقديري</th>
+            <th>التهديد الرئيسي</th>
+            <th>منحنى التراجع</th>
+            <th>المنطقة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🐅 النمر الأمور</td>
+            <td><span class="danger-level dl-cr">⬤ خطر بالغ</span></td>
+            <td>~ 100 فرد</td>
+            <td>الصيد الجائر وفقدان الموطن</td>
+            <td><div class="trend-bar-wrap"><div class="trend-bar" style="width:92%"></div></div></td>
+            <td>روسيا / الصين</td>
+          </tr>
+          <tr>
+            <td>🦏 وحيد القرن الجاوي</td>
+            <td><span class="danger-level dl-cr">⬤ خطر بالغ</span></td>
+            <td>~ 68 فرد</td>
+            <td>فقدان الموطن والصيد</td>
+            <td><div class="trend-bar-wrap"><div class="trend-bar" style="width:97%"></div></div></td>
+            <td>إندونيسيا</td>
+          </tr>
+          <tr>
+            <td>🐋 الحوت الأزرق</td>
+            <td><span class="danger-level dl-en">⬤ مهدد</span></td>
+            <td>10,000 – 25,000</td>
+            <td>صدم السفن وتشابك الشباك</td>
+            <td><div class="trend-bar-wrap"><div class="trend-bar" style="width:75%"></div></div></td>
+            <td>جميع المحيطات</td>
+          </tr>
+          <tr>
+            <td>🦍 الغوريلا الجبلية</td>
+            <td><span class="danger-level dl-en">⬤ مهدد</span></td>
+            <td>~ 1,063</td>
+            <td>تدمير الغابات والصراعات المسلحة</td>
+            <td><div class="trend-bar-wrap"><div class="trend-bar" style="width:60%"></div></div></td>
+            <td>وسط أفريقيا</td>
+          </tr>
+          <tr>
+            <td>🐼 الباندا العملاقة</td>
+            <td><span class="danger-level dl-vu">⬤ عُرضة للخطر</span></td>
+            <td>~ 1,864</td>
+            <td>تدمير غابات الخيزران</td>
+            <td><div class="trend-bar-wrap"><div class="trend-bar" style="width:40%"></div></div></td>
+            <td>الصين</td>
+          </tr>
+          <tr>
+            <td>🦅 النسر الفلبيني</td>
+            <td><span class="danger-level dl-cr">⬤ خطر بالغ</span></td>
+            <td>~ 800 زوج</td>
+            <td>إزالة الغابات والصيد</td>
+            <td><div class="trend-bar-wrap"><div class="trend-bar" style="width:85%"></div></div></td>
+            <td>الفلبين</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== RESOURCES ====== -->
+<section id="resources">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">ركن المعلم والطالب</div>
+      <h2 class="section-title">الموارد التعليمية</h2>
+      <p class="section-subtitle">مواد تعليمية مجانية للمدارس والجامعات والباحثين</p>
+    </div>
+
+    <div class="resources-grid">
+      <a href="#" class="resource-card reveal">
+        <div class="resource-icon">📋</div>
+        <div>
+          <h3>دليل الاستخدام الكامل</h3>
+          <p>كيفية الاستفادة من الأطلس، قراءة البيانات، وتوظيف المحتوى في الدراسة والبحث العلمي.</p>
+        </div>
+      </a>
+      <a href="#" class="resource-card reveal">
+        <div class="resource-icon">📚</div>
+        <div>
+          <h3>خطط الدروس للمعلمين</h3>
+          <p>دروس جاهزة ومنهجية لتدريس التنوع البيولوجي والانقراض لطلاب المراحل المختلفة.</p>
+        </div>
+      </a>
+      <a href="#" class="resource-card reveal">
+        <div class="resource-icon">🔬</div>
+        <div>
+          <h3>الأبحاث العلمية</h3>
+          <p>روابط لأحدث الدراسات والأوراق العلمية المحكّمة في مجال علم الحفاظ على الحياة البرية.</p>
+        </div>
+      </a>
+      <a href="#" class="resource-card reveal">
+        <div class="resource-icon">🎮</div>
+        <div>
+          <h3>الأنشطة التفاعلية</h3>
+          <p>مسابقات وألعاب تعليمية ونماذج محاكاة لبيئات الحيوانات المهددة بالانقراض.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== HOW TO HELP ====== -->
+<section id="help">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">كيف أساعد؟</div>
+      <h2 class="section-title">خطوات فعلية للمشاركة</h2>
+      <p class="section-subtitle">كل فرد يمكنه المساهمة في الحفاظ على الحياة البرية</p>
+    </div>
+
+    <div class="help-grid">
+      <div class="help-card reveal">
+        <div class="help-step">١</div>
+        <h3>تعلّم وانشر الوعي</h3>
+        <p>ابدأ بتثقيف نفسك وشارك ما تعرفه مع عائلتك وأصدقائك عبر وسائل التواصل الاجتماعي.</p>
+      </div>
+      <div class="help-card reveal">
+        <div class="help-step">٢</div>
+        <h3>تبرّع لمنظمات الحفظ</h3>
+        <p>ادعم مالياً المنظمات العاملة في مجال الحفاظ على الحياة البرية كـ WWF وـ IUCN.</p>
+      </div>
+      <div class="help-card reveal">
+        <div class="help-step">٣</div>
+        <h3>قلّل بصمتك الكربونية</h3>
+        <p>تغيير المناخ يدمر المواطن الطبيعية. اختياراتك اليومية تصنع فرقاً حقيقياً.</p>
+      </div>
+      <div class="help-card reveal">
+        <div class="help-step">٤</div>
+        <h3>تجنّب المنتجات المشكوك بها</h3>
+        <p>لا تشترِ منتجات مصنوعة من أجزاء الحيوانات المحمية كالعاج وريش الطيور النادرة.</p>
+      </div>
+      <div class="help-card reveal">
+        <div class="help-step">٥</div>
+        <h3>تطوّع في مشاريع الحفظ</h3>
+        <p>انضم لبرامج التطوع المحلية والدولية التي تعمل على مراقبة وحماية الأنواع المهددة.</p>
+      </div>
+      <div class="help-card reveal">
+        <div class="help-step">٦</div>
+        <h3>ادعم السياسات البيئية</h3>
+        <p>شارك في صنع القرار، صوّت للمرشحين الداعمين للبيئة، وشارك في المناصرة البيئية.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== NEWS ====== -->
+<section id="news">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">المدونة الإخبارية</div>
+      <h2 class="section-title">آخر الأخبار والتقارير</h2>
+      <p class="section-subtitle">تابع أحدث الأخبار والمستجدات من عالم الحفظ والحياة البرية</p>
+    </div>
+
+    <div class="news-grid">
+      <a href="#" class="news-card reveal">
+        <div class="news-thumb" style="background: linear-gradient(135deg,#1a3a2a,#2d5a3d);">
+          <span style="font-size:3.5rem">🐅</span>
+          <span class="news-date">15 يناير 2025</span>
+        </div>
+        <div class="news-body">
+          <div class="news-tag">نمور</div>
+          <h3>ارتفاع ملحوظ في أعداد النمور بالهند لأول مرة منذ عقود</h3>
+        </div>
+      </a>
+      <a href="#" class="news-card reveal">
+        <div class="news-thumb" style="background: linear-gradient(135deg,#0a1628,#1a3a5c);">
+          <span style="font-size:3.5rem">🐋</span>
+          <span class="news-date">3 فبراير 2025</span>
+        </div>
+        <div class="news-body">
+          <div class="news-tag">حياة بحرية</div>
+          <h3>تقرير: أصوات الحيتان تكشف عن مسارات هجرة غير مألوفة</h3>
+        </div>
+      </a>
+      <a href="#" class="news-card reveal">
+        <div class="news-thumb" style="background: linear-gradient(135deg,#1a1005,#3d2a0a);">
+          <span style="font-size:3.5rem">🌿</span>
+          <span class="news-date">20 مارس 2025</span>
+        </div>
+        <div class="news-body">
+          <div class="news-tag">مناخ</div>
+          <h3>دراسة: التغير المناخي يضاعف معدل انقراض الأنواع بمقدار أربع مرات</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PARTNERS ====== -->
+<section id="partners">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">شركاء الاستدامة</div>
+      <h2 class="section-title">منظمات نثق بها</h2>
+    </div>
+    <div class="partners-grid reveal">
+      <div class="partner-badge">🌐 IUCN – الاتحاد الدولي لصون الطبيعة</div>
+      <div class="partner-badge">🐼 WWF – الصندوق العالمي للطبيعة</div>
+      <div class="partner-badge">🦁 African Wildlife Foundation</div>
+      <div class="partner-badge">🐬 Ocean Conservancy</div>
+      <div class="partner-badge">🌳 Rainforest Alliance</div>
+      <div class="partner-badge">🔬 Wildlife Conservation Society</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-visual reveal">
+        <div class="about-ring"></div>
+        <div class="about-ring"></div>
+        <span class="about-emoji-big">🌍</span>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-tag">عن المشروع</div>
+        <h2>لماذا أطلس الحياة البرية؟</h2>
+        <p>
+          نؤمن بأن الوعي هو أولى خطوات التغيير. مشروعنا يجمع بين رواية القصص الإنسانية والبيانات العلمية الدقيقة لتقديم صورة متكاملة عن أزمة الانقراض التي نعيشها.
+        </p>
+        <p>
+          انطلق المشروع في 2023 بمبادرة من فريق من الباحثين والمصورين والمبرمجين الذين يؤمنون أن التقنية يمكنها خدمة الطبيعة.
+        </p>
+        <ul class="mission-points">
+          <li><div class="dot"></div>توثيق قصص الأنواع المهددة بطريقة إنسانية وعلمية موثوقة</li>
+          <li><div class="dot"></div>بناء قاعدة بيانات مفتوحة ومتاحة للباحثين والمعلمين</li>
+          <li><div class="dot"></div>تمكين المجتمعات من المشاركة في جهود الحفظ والحماية</li>
+          <li><div class="dot"></div>ربط المهتمين بشركاء دوليين يعملون في الميدان</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="section-tag">تواصل معنا</div>
+        <h2>نحن هنا للاستماع</h2>
+        <p>
+          سواء كنت باحثاً يريد المساهمة بمعلومات، أو معلماً يحتاج مواد، أو متطوعاً يرغب في الانضمام — نرحب بك!
+        </p>
+        <div class="contact-links">
+          <a href="mailto:info@wildlife-atlas.org" class="contact-link">
+            <span class="cl-icon">✉️</span>
+            <span>info@wildlife-atlas.org</span>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="cl-icon">🐦</span>
+            <span>@WildlifeAtlasAR</span>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="cl-icon">📘</span>
+            <span>facebook.com/WildlifeAtlasAR</span>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="cl-icon">📍</span>
+            <span>نعمل بشكل رقمي من جميع أنحاء العالم</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label>الاسم الكامل</label>
+            <input type="text" placeholder="أدخل اسمك..." />
+          </div>
+          <div class="form-group">
+            <label>البريد الإلكتروني</label>
+            <input type="email" placeholder="email@example.com" />
+          </div>
+          <div class="form-group">
+            <label>الموضوع</label>
+            <select>
+              <option>استفسار عام</option>
+              <option>تطوع ومشاركة</option>
+              <option>مقترح بحثي</option>
+              <option>تعاون مؤسسي</option>
+              <option>مواد تعليمية</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>الرسالة</label>
+            <textarea placeholder="اكتب رسالتك هنا..."></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%; justify-content:center" onclick="submitForm()">
+            📨 إرسال الرسالة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">🌿 أطلس الحياة البرية</div>
+      <p>مشروع توثيقي يروي قصص الحيوانات المهددة بالانقراض، ويربط الناس بعالم الطبيعة من خلال البيانات والقصص الإنسانية.</p>
+    </div>
+    <div class="footer-col">
+      <h4>الأطلس</h4>
+      <ul>
+        <li><a href="#atlas">الثدييات</a></li>
+        <li><a href="#atlas">الطيور</a></li>
+        <li><a href="#atlas">الحياة البحرية</a></li>
+        <li><a href="#data">سجلات الانقراض</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>الموارد</h4>
+      <ul>
+        <li><a href="#resources">دليل الاستخدام</a></li>
+        <li><a href="#resources">مواد تعليمية</a></li>
+        <li><a href="#news">المدونة</a></li>
+        <li><a href="#data">البيانات المفتوحة</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>المشروع</h4>
+      <ul>
+        <li><a href="#about">عن المشروع</a></li>
+        <li><a href="#partners">شركاؤنا</a></li>
+        <li><a href="#help">كيف تساعد</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 أطلس الحياة البرية. جميع الحقوق محفوظة.</p>
+    <p>صُنع بـ 💚 لأجل الحياة البرية</p>
+  </div>
+</footer>
+
+<script>
+  // ====== CURSOR ======
+  const cursor = document.getElementById('cursor');
+  const cursorDot = document.getElementById('cursorDot');
+  let mx = 0, my = 0, cx = 0, cy = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursorDot.style.left = mx + 'px';
+    cursorDot.style.top = my + 'px';
+  });
+
+  function animateCursor() {
+    cx += (mx - cx) * 0.15;
+    cy += (my - cy) * 0.15;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button, .atlas-card, .story-card, .gallery-item, .tab-btn, .partner-badge, .help-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; cursor.style.background = 'rgba(212,160,23,0.2)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursor.style.background = 'transparent'; });
+  });
+
+  // ====== SCROLL REVEAL ======
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80 * (Array.from(entry.target.parentNode.children).indexOf(entry.target) % 4));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ====== GALLERY TABS ======
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // ====== MODAL DATA ======
+  const animalData = {
+    tiger: {
+      emoji: '🐅',
+      title: 'النمر البنغالي',
+      status: '<span class="danger-level dl-en" style="font-size:0.85rem">⬤ مهدد بالانقراض (EN)</span>',
+      body: `<p>كان عدد النمور في العالم يتجاوز 100,000 نمر في مطلع القرن العشرين. اليوم، لا يتبقى منها سوى 3,900 فرد في البرية.</p>
+      <h4>📍 الموطن الطبيعي</h4>
+      <p>غابات الهند وبنغلاديش ونيبال وبوتان، ويعيش في مواطن متنوعة من الغابات الكثيفة إلى الأراضي العشبية.</p>
+      <h4>⚠️ التهديدات الرئيسية</h4>
+      <p>الصيد الجائر لأجزاء جسمه ذات القيمة في الطب التقليدي الآسيوي، وتدمير الغابات لصالح الزراعة والتوسع العمراني، والتعارض مع المجتمعات البشرية.</p>
+      <h4>🌱 جهود الحفظ</h4>
+      <p>أسهمت محميات النمور في الهند في ارتفاع أعدادها من 1,411 عام 2006 إلى 3,167 عام 2022. قصة نجاح تدل على أن الحفظ ممكن.</p>`
+    },
+    rhino: {
+      emoji: '🦏',
+      title: 'وحيد القرن الأبيض الشمالي',
+      status: '<span class="danger-level dl-cr" style="font-size:0.85rem">⬤ خطر بالغ (CR) - شبه منقرض</span>',
+      body: `<p>واحد من أكثر الحيوانات إثارة للحزن في عالم الحفظ. تبقّت أنثيان فقط، نجين وفاتو، في محمية أول بيجيتا في كينيا. لا يوجد أي ذكر على قيد الحياة.</p>
+      <h4>📍 الأصل الجغرافي</h4>
+      <p>كان موطنه الأصلي في وسط أفريقيا، في مناطق أوغندا وتشاد والكونغو. آخر نسخة في البرية أُطلق عليها النار عام 2008.</p>
+      <h4>⚠️ سبب الانقراض شبه الكامل</h4>
+      <p>الصيد الجائر لقرنه الذي يُباع بأسعار خيالية في الأسواق السوداء، يفوق سعره سعر الذهب والكوكايين.</p>
+      <h4>🔬 آمال العلم</h4>
+      <p>يعمل العلماء على تقنية الإخصاب المختبري باستخدام الأجنة المجمدة وخلايا جذعية، في محاولة أخيرة لإنقاذ النوع.</p>`
+    },
+    panda: {
+      emoji: '🐼',
+      title: 'الباندا العملاقة',
+      status: '<span class="danger-level dl-vu" style="font-size:0.85rem">⬤ عُرضة للخطر (VU)</span>',
+      body: `<p>الباندا رمز عالمي للحفاظ على الحياة البرية. تتغذى على الخيزران بنسبة 99% من غذائها، وتقضي 12-16 ساعة يومياً في الأكل.</p>
+      <h4>📍 الموطن الطبيعي</h4>
+      <p>جبال سيتشوان وشنشي وقانسو في الصين، في غابات الخيزران على الارتفاعات بين 1,200 و3,500 متر.</p>
+      <h4>✅ قصة نجاح</h4>
+      <p>رُفع وضعها من "مهددة بالانقراض" إلى "عُرضة للخطر" في 2016، بعد أن ارتفع عددها بفضل برامج التكاثر في الأسر وحماية المواطن الطبيعية.</p>
+      <h4>⚠️ التحديات الباقية</h4>
+      <p>التغير المناخي يهدد غابات الخيزران، وتبقى مجموعاتها منعزلة جغرافياً مما يضعف التنوع الجيني.</p>`
+    },
+    whale: {
+      emoji: '🐳',
+      title: 'الحوت الأزرق',
+      status: '<span class="danger-level dl-en" style="font-size:0.85rem">⬤ مهدد بالانقراض (EN)</span>',
+      body: `<p>الحوت الأزرق هو أضخم حيوان عرفته الأرض على مر التاريخ. يمكن أن يصل طوله إلى 33 متراً ووزنه إلى 200 طن.</p>
+      <h4>🌊 الانتشار الجغرافي</h4>
+      <p>يعيش في جميع محيطات العالم، ويهاجر لمسافات شاسعة بين مناطق التغذية القطبية ومناطق التكاثر الاستوائية.</p>
+      <h4>⚠️ التهديدات</h4>
+      <p>الاصطدام بالسفن التجارية، والتشابك في شباك الصيد، وتلوث الصوت الذي يعطل تواصله وملاحته، وتغير المناخ الذي يقلص أسماك الكريل غذاؤه الرئيسي.</p>
+      <h4>📉 التاريخ المظلم</h4>
+      <p>قُتل أكثر من 380,000 حوت أزرق خلال القرن العشرين بسبب صيد الحيتان التجاري، قبل أن يُحظر دولياً عام 1966.</p>`
+    },
+    eagle: {
+      emoji: '🦅',
+      title: 'النسر الفلبيني',
+      status: '<span class="danger-level dl-cr" style="font-size:0.85rem">⬤ خطر بالغ (CR)</span>',
+      body: `<p>يُعدّ النسر الفلبيني من أكبر النسور وأقواها في العالم، ومن أنادرها كذلك. إنه الطائر الوطني للفلبين.</p>
+      <h4>📏 الضخامة المذهلة</h4>
+      <p>يمتد جناحاه من 1.8 إلى 2.2 متر، ويبلغ وزنه 8 كيلوغرام. يتغذى على الرئيسيات والطائرات والثعابين الكبيرة.</p>
+      <h4>📍 الموطن الطبيعي</h4>
+      <p>يقتصر وجوده على الغابات المطيرة في جزيرة مينداناو، وبعض الجزر الأصغر في الفلبين.</p>
+      <h4>⚠️ التهديدات</h4>
+      <p>إزالة الغابات لصالح الزراعة وزراعة النخيل، والصيد والاصطياد غير القانوني. يحتاج كل زوج لمساحة 100 كيلومتر مربع من الغابة.</p>`
+    },
+    gorilla: {
+      emoji: '🦍',
+      title: 'الغوريلا الجبلية',
+      status: '<span class="danger-level dl-en" style="font-size:0.85rem">⬤ مهدد بالانقراض (EN)</span>',
+      body: `<p>الغوريلا الجبلية من أقرب الأقارب البيولوجية للإنسان، إذ تشترك معه في 98.3% من الحمض النووي.</p>
+      <h4>📍 الموطن الطبيعي</h4>
+      <p>تعيش حصراً في جبال فيرونغا على الحدود بين رواندا وأوغندا والكونغو الديمقراطية، وفي منتزه بووندي الجبلي بأوغندا.</p>
+      <h4>👨‍👩‍👧 الحياة الاجتماعية</h4>
+      <p>تعيش في مجموعات عائلية تقودها ذكر مسيطر "ظهر الفضة". تستخدم أدوات بدائية وتُظهر مشاعر معقدة كالحزن والفرح.</p>
+      <h4>🌱 بارقة أمل</h4>
+      <p>زاد عددها من 620 فرد عام 1989 إلى 1,063 عام 2018، في أحد القصص النادرة التي يرتفع فيها عدد نوع مهدد بدلاً من أن ينخفض.</p>`
+    }
+  };
+
+  function openModal(id) {
+    const d = animalData[id];
+    if (!d) return;
+    document.getElementById('modalEmoji').textContent = d.emoji;
+    document.getElementById('modalTitle').textContent = d.title;
+    document.getElementById('modalStatus').innerHTML = d.status;
+    document.getElementById('modalBody').innerHTML = d.body;
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal')) closeModal();
+  });
+
+  // ====== CONTACT FORM ======
+  function submitForm() {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  // ====== NAV ACTIVE STATE ======
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href') === '#' + current) link.style.color = 'var(--amber)';
+    });
+  });
+
+  // ====== MAP REGION HOVER ======
+  document.querySelectorAll('.map-region').forEach(r => {
+    r.addEventListener('mouseenter', () => r.setAttribute('opacity', '1'));
+    r.addEventListener('mouseleave', () => r.setAttribute('opacity', '0.8'));
+  });
+</script>
+</body>
+</html>
